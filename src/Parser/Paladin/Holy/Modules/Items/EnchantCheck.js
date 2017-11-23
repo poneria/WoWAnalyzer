@@ -29,6 +29,15 @@ class EnchantCheck extends Analyzer {
         // if an enchant, do stuff
         if(item.permanentEnchant === undefined){
           enchantQuality = 0;
+
+          when(enchantQuality).isLessThan(1)
+            .addSuggestion((suggest, actual, recommended) => {
+              return suggest('You are missing an enchant!')
+              .icon('inv_misc_note_01')
+              .actual(`actual`)
+              .recommended(`recommended`)
+              .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
+          });
         }
         else{
           switch (item.permanentEnchant) {
@@ -41,11 +50,11 @@ class EnchantCheck extends Analyzer {
             // CLOAK
             case 5435:
               debug && console.log(`CLOAK => Binding of Agility`);
-              enchantQuality = 2;
+              enchantQuality = 1;
               break;
             case 5436:
               debug && console.log(`CLOAK => Binding of Intellect`);
-              enchantQuality = 1;
+              enchantQuality = 0;
               break;
 
             // RING
@@ -57,15 +66,6 @@ class EnchantCheck extends Analyzer {
             default:
               debug && console.log(`ITEM ${item.id} => ENCHANT ID ${item.permanentEnchant}`);
           }
-
-          when(enchantQuality).isLessThan(1)
-            .addSuggestion((suggest, actual, recommended) => {
-              return suggest('You are missing an enchant!')
-              .icon('inv_misc_note_01')
-              .actual(`actual`)
-              .recommended(`recommended`)
-              .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
-          });
 
           when(enchantQuality).isLessThan(2)
             .addSuggestion((suggest, actual, recommended) => {
@@ -84,14 +84,38 @@ export default EnchantCheck;
 
 /*
 
-// ENCHANT NECK
-5891: Mark of the Ancient Priestess
+// ENCHANT RING
+5423: Word of Critical Strike - +150
+5424: Word of Haste - +150
+5425: Word of Mastery - +150
+5426: Word of Versatility - +150
+
+5427: Binding of Critical Strike - +200
+5428: Binding of Haste - +200
+5429: Binding of Mastery - +200
+5430: Binding of Versatility - +200
 
 // ENCHANT CLOAK
-5435: Binding of Agility
-5436: Binding of Intellect
+5431: Word of Strength - +150
+5432: Word of Agility - +150
+5433: Word of Intellect - +150
 
-// ENCHANT RING
-5427: Binding of Critical Strike
+5434: Binding of Strength - +200
+5435: Binding of Agility - +200
+5436: Binding of Intellect - +200
+
+// ENCHANT NECK
+5437: Mark of the Claw - crit/haste proc
+5438: Mark of the Distant Army - damage proc
+5439: Mark of the Hidden Satyr - damage proc
+
+5889: Mark of the Heavy Hide - armor proc
+5890: Mark of the Trained Soldier - +600 mastery
+5891: Mark of the Ancient Priestess - heal proc
+
+5895: Mark of the Master - +200 mastery
+5896: Mark of the Versatile - +200 versa
+5897: Mark of the Quick - +200 haste
+5898: Mark of the Deadly - +200 crit
 
 */
