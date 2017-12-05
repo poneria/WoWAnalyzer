@@ -49,11 +49,11 @@ class EnchantCheck extends Analyzer {
       14, // BACK
     ];
 
-    var thisSlot = 0;
+    let thisSlot = 0;
     const slots = this.combatants.selected._gearItemsBySlotId;
     Object.values(slots)
       .forEach(item => {
-          var enchantQuality = 5; // an enchant, maybe wrong-spec
+          let enchantQuality = 5; // an enchant, maybe wrong-spec
 
           if(enchantSlots.includes(thisSlot)) {
 
