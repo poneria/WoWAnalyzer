@@ -1,16 +1,23 @@
-//import React from 'react';
+import React from 'react';
 
-//import ITEMS from 'common/ITEMS';
-//import SPELLS from 'common/SPELLS';
-//import SpellLink from 'common/SpellLink';
-//import ItemLink from 'common/ItemLink';
-//import { formatPercentage } from 'common/format';
+import Icon from 'common/Icon';
+import ITEMS from 'common/ITEMS';
+import ItemIcon from 'common/ItemIcon';
+import ItemLink from 'common/ItemLink';
+
+import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import SmallStatisticBox from 'Main/SmallStatisticBox';
+import StatisticBox from 'Main/StatisticBox';
+import { formatPercentage } from 'common/format';
 
 const debug = true;
 
@@ -109,6 +116,29 @@ class EnchantCheck extends Analyzer {
         }
       );
   }
+
+
+
+  statistic() {
+    const enchantSlots = ['NECK', 'BACK', 'FINGER 1', 'FINGER 2'];
+
+    return (
+      <StatisticsListBox
+        title={<span><Icon icon="inv_misc_enchantedscroll" /> Enchants</span>}
+        label="Enchant checker"
+        tooltip={ `Suggested enchants are...` }
+      >
+        {enchantSlots.map(slot => (
+          <div className="flex">
+            <div className="flex-main">
+              {slot}
+            </div>
+          </div>
+          ))}
+      </StatisticsListBox>
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(10000);
 }
 
 export default EnchantCheck;
@@ -174,3 +204,48 @@ DEBUG check
   OFFHAND: 16,
   TABARD: 17,
 */
+
+/*statisticbox
+value={(  
+          <span>
+            <Icon 
+              icon="inv_jewelry_necklace_08" 
+              style={{
+                height: '1.2em',
+                marginBottom: '.15em',
+              }}
+              alt="Downtime" 
+            />
+            {' '}MISSING
+            <br />
+            <Icon 
+              icon="inv_misc_cape_20" 
+              style={{
+                height: '1.2em',
+                marginBottom: '.15em',
+              }}
+              alt="Downtime" 
+            />
+            {' '}WRONG SPEC
+            <br />
+            <Icon 
+              icon="inv_jewelry_ring_03" 
+              style={{
+                height: '1.2em',
+                marginBottom: '.15em',
+              }}
+              alt="Downtime" 
+            />
+            {' '}CHEAP
+            <br />
+            <Icon 
+              icon="inv_jewelry_ring_03" 
+              style={{
+                height: '1.2em',
+                marginBottom: '.15em',
+              }}
+              alt="Downtime" 
+            />
+            {' '}BEST
+          </span>
+        )}*/
